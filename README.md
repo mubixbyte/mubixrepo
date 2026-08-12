@@ -2,7 +2,7 @@
 
 Public APT repository for iOS jailbreak packages by MubixByte.
 
-Source URL: `https://mubixbyte.github.io/MubixRepo/`
+Source URL: `https://mubixbyte.github.io/mubixrepo/`
 
 ## Adding a package
 
