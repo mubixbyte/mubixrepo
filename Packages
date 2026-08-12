@@ -1,0 +1,102 @@
+Package: com.dvntm.cc18
+Version: 0.0.3
+Architecture: iphoneos-arm64
+Maintainer: dvntm
+Installed-Size: 152
+Depends: mobilesubstrate (>= 0.9.5000), firmware (< 18.0)
+Filename: debs/com.dvntm.cc18_0.0.3_iphoneos-arm64.deb
+Size: 4494
+MD5sum: 61c606586a407d92d328fdca914676c5
+SHA1: a0c862e7c99d82e1d8d9083ca1fc2fb803f925c0
+SHA256: 67c03afc0a875f2eb3685e70b7fe54cb6dabdbd2813201693ddfef7ab88bcc67
+Section: iOS 16 to iOS 18
+Description: Round CC modules replication, like in iOS 18
+Author: dvntm
+Icon: https://raw.githubusercontent.com/dayanch96/CC18/refs/heads/main/Sileo/icon.png
+Name: CC18
+Sileodepiction: https://raw.githubusercontent.com/dayanch96/CC18/main/Sileo/depiction.json
+
+Package: com.evgeniy.homescreen18
+Version: 1.0
+Architecture: iphoneos-arm64
+Maintainer: evgeniy
+Installed-Size: 99024
+Depends: firmware (>= 16.0), preferenceloader, com.opa334.ellekit | mobilesubstrate
+Filename: debs/com.evgeniy.homescreen18_1.0_iphoneos-arm64.deb
+Size: 87771116
+MD5sum: 88a9e0fc4a0c8bb6a58fcef1b7d41a7d
+SHA1: 96cef471c320654ba8ce588429425b1889148e31
+SHA256: 27e1edd936f0eeee790c6cd7345e57650a58250bca0f164ccad1bfb0c3a42ff6
+Section: iOS 16 to iOS 18
+Description: Adds homescreen customization like on iOS 18. Supports iOS 16.0-17.7 Dopamine, NathanLR Rootless.
+ Добавляет кастомизацию домашнего экрана как на iOS 18. Поддерживается iOS 16.0-17.7 Dopamine, NathanLR Rootless.
+Author: evgeniy
+Icon: https://iili.io/CSHi3ml.png
+Name: Homescreen18
+
+Package: com.mubixbyte.appindex
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Maintainer: MubixByte
+Installed-Size: 208
+Depends: firmware (>= 16.0), firmware (<< 18.0), uikittools
+Filename: debs/com.mubixbyte.appindex_1.0.0_iphoneos-arm64.deb
+Size: 20406
+MD5sum: 485a04146ba15120e78191c27caf552b
+SHA1: ff7fa744d8013bf1e798dcc3e280db4f4d6b810e
+SHA256: 74c2c491ecacc40937b80288c5750caff3d65ddcbc33c44863e6564010526f96
+Section: iOS 16 to iOS 18
+Priority: optional
+Description: Browse, search, and launch every installed app, including system and hidden apps.
+Author: MubixByte
+Name: AppIndex
+
+Package: com.rpgfarm.a-font
+Version: 1.10.2
+Architecture: iphoneos-arm64
+Maintainer: Baw Appie <pp121324@gmail.com>
+Installed-Size: 2480
+Depends: mobilesubstrate, preferenceloader
+Filename: debs/com.rpgfarm.a-font_1.10.2_iphoneos-arm64.deb
+Size: 493576
+MD5sum: 6f652f53cf272fc93f4241b99a0da627
+SHA1: d217581220e3216165ca0c767ffe56ffe094da80
+SHA256: 673a23d2288dd4d56e7ff1ff4baeafac1b0048d7044cfd1c995c144d1c10ed2f
+Section: Fonts
+Description: Change your font!
+Author: Baw Appie <pp121324@gmail.com>
+Name: A-Font
+
+Package: com.teslaman3092.popoutbuttons
+Version: 1.0.2
+Architecture: iphoneos-arm64
+Maintainer: teslaman3092
+Installed-Size: 468
+Depends: firmware (>= 13.0), firmware (<< 18.0), com.opa334.ellekit | mobilesubstrate (>= 0.9.5000), com.mrgcgamer.libgcuniversal, preferenceloader
+Filename: debs/com.teslaman3092.popoutbuttons_1.0.2_iphoneos-arm64.deb
+Size: 57394
+MD5sum: ea769645bf0b178e33af9a5acc550cac
+SHA1: c4c45a7cffbf3687f55ab6187dfbdc3855b7d558
+SHA256: 77656557ddca2dc195427fded616741276bcb0b293721ac3e381a5067d702e7c
+Section: iOS 16 to iOS 18
+Description: PopOutButtons bring the iOS 18 buttons popouts to iOS 13-17
+Author: teslaman3092
+Name: PopOutButtons
+
+Package: xyz.cypwn.ersatz
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: CyPwn
+Depends: mobilesubstrate, preferenceloader
+Filename: debs/xyz.cypwn.ersatz_1.0.1_iphoneos-arm.deb
+Size: 73340
+MD5sum: 873b590edd4b634c874f185ff7e2867f
+SHA1: d65f702b861913d0ad5cbb11185fd4aea23ae1a0
+SHA256: 192992b61e8fabc500eefe937bbff033511b4a04006b90a3ae3449f9bdb9b33a
+Section: iOS 16 to iOS 18
+Description: Replace any text, system-wide!
+Author: Skitty
+Depiction: https://repo.cypwn.xyz/depiction/1610
+Icon: https://skitty.xyz/repo/icons/xyz.skitty.ersatz.png
+Name: Ersatz
+Sileodepiction: https://repo.cypwn.xyz/sileo_depiction/1610

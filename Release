@@ -1,0 +1,17 @@
+Origin: MubixByte Repo
+Label: MubixByte Repo
+Suite: stable
+Version: 1.1
+Codename: ios
+Date: Wed, 12 Aug 2026 21:58:26 +0000
+Architectures: iphoneos-arm iphoneos-arm64
+Components: main
+Description: Must-have jailbreak tweaks and original packages by MubixByte
+MD5Sum:
+ 702feb9b9c0e48b05e2231a894178b73             3880 Packages
+ cba153126c6fbb3621a2bdba9ee5ea38             1719 Packages.gz
+ 57df9a886a0e4859845637168732838b             1835 Packages.bz2
+SHA256:
+ 31974aede133c5731d9774c620b8a34a2d18f5304258f33b60f4a90707b3b20a             3880 Packages
+ 38d8523378fe91c97ce2d57fadb7adfa6f08152873a5259bf5e5f0c44a71032f             1719 Packages.gz
+ 908db5dd0b4930f959d216d76e9d332b1b6869ace15667a650da83de427a037f             1835 Packages.bz2
