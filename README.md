@@ -2,7 +2,9 @@
 
 Public APT repository for iOS jailbreak packages by MubixByte.
 
-Current category: **iOS 16 to iOS 18**. First package: **Homescreen18**.
+Current category: **iOS 16 to iOS 18**.
+
+Packages: **Homescreen18**, **Ersatz**, **CC18**, and **PopOutButtons**.
 
 Source URL: `https://mubixbyte.github.io/mubixrepo/`
 
