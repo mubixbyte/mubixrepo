@@ -1,4 +1,4 @@
-TARGET = iphone:clang:latest:15.0
+TARGET = iphone:clang:16.5:15.0
 PREFIX="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/"
 ARCHS = arm64 arm64e
 
