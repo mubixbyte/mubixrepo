@@ -1,0 +1,62 @@
+name: Publish Sileo repository
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "debs/**"
+      - "site/**"
+      - ".github/workflows/publish.yml"
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install repository tools
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev bzip2
+      - name: Validate packages
+        run: |
+          set -euo pipefail
+          test -n "$(find debs -maxdepth 1 -type f -name '*.deb' -print -quit)"
+          declare -A seen
+          for deb in debs/*.deb; do
+            dpkg-deb --info "$deb" >/dev/null
+            package="$(dpkg-deb -f "$deb" Package)"
+            version="$(dpkg-deb -f "$deb" Version)"
+            arch="$(dpkg-deb -f "$deb" Architecture)"
+            key="$package|$version|$arch"
+            if [[ -n "${seen[$key]:-}" ]]; then
+              echo "Duplicate package/version/architecture: $key" >&2
+              exit 1
+            fi
+            seen[$key]=1
+          done
+      - name: Generate APT repository
+        run: |
+          set -euo pipefail
+          mkdir -p repo/debs
+          cp debs/*.deb repo/debs/
+          cp -R site/. repo/
+          cd repo
+          dpkg-scanpackages -m debs /dev/null > Packages
+          gzip -9c Packages > Packages.gz
+          bzip2 -9c Packages > Packages.bz2
+          cat > Release <<'EOF'
+          Origin: MubixByte Repo
+          Label: MubixByte Repo
+          Suite: stable
+          Version: 1.0
+          Codename: ios
+          Architectures: iphoneos-arm iphoneos-arm64
+          Components: main
+          Description: Must-have jailbreak tweaks and original packages by MubixByte
+          EOF
+      - name: Publish GitHub Pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./repo
+          publish_branch: gh-pages
+          force_orphan: true
