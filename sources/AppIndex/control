@@ -1,0 +1,10 @@
+Package: com.mubixbyte.appindex
+Name: AppIndex
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: Browse, search, and launch every installed app, including system and hidden apps.
+Author: MubixByte
+Maintainer: MubixByte
+Section: Tweaks
+Depends: firmware (>= 16.0), firmware (<< 18.0), uikittools
+Priority: optional
