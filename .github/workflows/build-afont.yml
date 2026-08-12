@@ -1,0 +1,37 @@
+name: Build A-Font rootless
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "sources/A-Font/**"
+      - ".github/workflows/build-afont.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Theos
+        run: |
+          brew install ldid make xz
+          git clone --recursive https://github.com/theos/theos.git "$HOME/theos"
+      - name: Build rootless package
+        working-directory: sources/A-Font
+        run: |
+          export THEOS="$HOME/theos"
+          gmake clean package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+          dpkg-deb --info packages/*.deb
+      - name: Publish built package to main
+        run: |
+          rm -f debs/com.rpgfarm.a-font_*.deb
+          cp sources/A-Font/packages/*.deb debs/
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add debs/
+          git commit -m "Build A-Font 1.10.2 rootless"
+          git push
