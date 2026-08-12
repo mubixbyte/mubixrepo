@@ -6,6 +6,8 @@ on:
     paths:
       - "debs/**"
       - "site/**"
+      - "package-overrides.json"
+      - "scripts/apply_overrides.py"
       - ".github/workflows/publish.yml"
 permissions:
   contents: write
@@ -44,16 +46,25 @@ jobs:
           python3 ../scripts/apply_overrides.py Packages ../package-overrides.json
           gzip -9c Packages > Packages.gz
           bzip2 -9c Packages > Packages.bz2
-          cat > Release <<'EOF'
-          Origin: MubixByte Repo
-          Label: MubixByte Repo
-          Suite: stable
-          Version: 1.0
-          Codename: ios
-          Architectures: iphoneos-arm iphoneos-arm64
-          Components: main
-          Description: Must-have jailbreak tweaks and original packages by MubixByte
-          EOF
+          {
+            echo "Origin: MubixByte Repo"
+            echo "Label: MubixByte Repo"
+            echo "Suite: stable"
+            echo "Version: 1.1"
+            echo "Codename: ios"
+            echo "Date: $(date -Ru)"
+            echo "Architectures: iphoneos-arm iphoneos-arm64"
+            echo "Components: main"
+            echo "Description: Must-have jailbreak tweaks and original packages by MubixByte"
+            echo "MD5Sum:"
+            for file in Packages Packages.gz Packages.bz2; do
+              printf ' %s %16d %s\n' "$(md5sum "$file" | cut -d' ' -f1)" "$(stat -c%s "$file")" "$file"
+            done
+            echo "SHA256:"
+            for file in Packages Packages.gz Packages.bz2; do
+              printf ' %s %16d %s\n' "$(sha256sum "$file" | cut -d' ' -f1)" "$(stat -c%s "$file")" "$file"
+            done
+          } > Release
       - name: Publish GitHub Pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
