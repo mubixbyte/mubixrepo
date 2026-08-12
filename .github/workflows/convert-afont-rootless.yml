@@ -1,0 +1,52 @@
+name: Convert A-Font to rootless
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "debs/com.rpgfarm.a-font_1.10_iphoneos-arm.deb"
+      - ".github/workflows/convert-afont-rootless.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install packaging tools
+        run: brew install dpkg ldid
+      - name: Convert package
+        run: |
+          set -euo pipefail
+          input="debs/com.rpgfarm.a-font_1.10_iphoneos-arm.deb"
+          output="debs/com.rpgfarm.a-font_1.10+rootless1_iphoneos-arm64.deb"
+          rm -rf "$RUNNER_TEMP/afont-old" "$RUNNER_TEMP/afont-new"
+          dpkg-deb -R "$input" "$RUNNER_TEMP/afont-old"
+          mkdir -p "$RUNNER_TEMP/afont-new/DEBIAN" "$RUNNER_TEMP/afont-new/var/jb"
+          cp -R "$RUNNER_TEMP/afont-old/DEBIAN/." "$RUNNER_TEMP/afont-new/DEBIAN/"
+          cp -R "$RUNNER_TEMP/afont-old/Library" "$RUNNER_TEMP/afont-new/var/jb/"
+          sed -i '' 's/^Architecture:.*/Architecture: iphoneos-arm64/' "$RUNNER_TEMP/afont-new/DEBIAN/control"
+          sed -i '' 's/^Version:.*/Version: 1.10+rootless1/' "$RUNNER_TEMP/afont-new/DEBIAN/control"
+          while IFS= read -r file; do
+            if file "$file" | grep -q 'Mach-O'; then
+              install_name_tool -change \
+                /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate \
+                @rpath/libsubstrate.dylib "$file"
+              install_name_tool -add_rpath /var/jb/usr/lib "$file" 2>/dev/null || true
+              ldid -s "$file"
+            fi
+          done < <(find "$RUNNER_TEMP/afont-new" -type f)
+          chmod 755 "$RUNNER_TEMP/afont-new/DEBIAN/postinst"
+          dpkg-deb -Zxz -b "$RUNNER_TEMP/afont-new" "$output"
+          dpkg-deb --info "$output"
+          rm "$input"
+      - name: Commit rootless package
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add debs/
+          git commit -m "Replace A-Font with rootless build"
+          git push
